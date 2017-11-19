@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
 const renderInput=field=>{
-    console.log(field);
 
     return(
         <div>
@@ -25,7 +24,6 @@ class Signin extends Component {
         })
         //Need to do something to log user in
     }
-
     renderAlert(){
         if(this.props.errorMessage){
             return (
