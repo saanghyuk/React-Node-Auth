@@ -1,34 +1,49 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
+import * as actions from '../actions';
+
 
 class Header extends Component{
 
+    handleClick(){
+        this.props.signoutUser();
+    }
+
+
     renderLinks(){
         if(this.props.authenticated){
-           return (
+            return (
                 <li className="nav-item">
-                    <Link className="nav-link" to="/signout">Sign Out</Link>
+                    <Link onClick={this.handleClick.bind(this)} className="nav-link" to="/">Sign Out</Link>
                 </li>
                 )
-        }else{
+        }else if(!this.props.authenticated){
             //show a link to sign in or sign up
-            return [
-                <li className="nav-item" key="1">
-                    <Link className="nav-link" to="/signin">Sign In</Link>
-                </li>,
-                <li className="nav-item" key="2">
+            return (
+                <li className="nav-item" key="">
                     <Link className="nav-link" to="/signup">Sign Up</Link>
                 </li>
 
-                ]
+            )
         }
     }
-
+    renderLogo(){
+        if(this.props.authenticated){
+           return (
+               <Link to="/feature" className="navbar-brand">Livle</Link>
+           )
+        }else{
+            return (
+               <Link to="/" className="navbar-brand">Livle</Link>
+            )
+        }
+    }
     render(){
         return(
             <nav className="navbar navbar-light">
-                <Link to="/" className="navbar-brand">Livle</Link>
+
+                    {this.renderLogo()}
                 <ul className="nav navbar-nav">
                     {this.renderLinks()}
                 </ul>
@@ -45,4 +60,4 @@ function mapStateToProps(state){
         authenticated: state.auth.authenticated
     }
 }
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, actions)(Header);

@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
 const renderInput=field=>{
-
     return(
         <div>
             <input {...field.input} type={field.type}/>
@@ -17,6 +16,12 @@ const renderInput=field=>{
 
 
 class Signin extends Component {
+    componentWillMount() {
+        if (this.props.authenticated) {
+            this.props.history.push('/feature');
+        }
+
+    }
     handleFormSubmit({ email, password }) {
         console.log(email, password);
         this.props.signinUser({email, password}, ()=>{
@@ -64,7 +69,7 @@ class Signin extends Component {
 }
 
 function mapStateToProps(state){
-    return {errorMessage: state.auth.error};
+    return {authenticated: state.auth.authenticated , errorMessage: state.auth.error};
 }
 
 export default reduxForm({
