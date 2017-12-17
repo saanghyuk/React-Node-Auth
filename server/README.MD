@@ -1,3 +1,7 @@
+Server - Use Passport + jwt
+Client - Store token in the localstorage 
+
+
 
 Make config file on the Root Directory.
 
